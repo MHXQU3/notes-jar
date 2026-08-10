@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>For You</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Caveat:wght@500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="petals" id="petals" aria-hidden="true"></div>
+
+<main class="page">
+  <header class="page-header">
+    <h1 class="page-title" id="page-title"></h1>
+    <p class="page-subtitle" id="page-subtitle"></p>
+  </header>
+
+  <div class="jar-moods" id="jar-moods"></div>
+  <div class="jar-mood-song" id="jar-mood-song"></div>
+
+  <div class="jar-visual">
+    <button class="jar-container" id="jar-container" aria-label="Tap the jar for a note">
+      <svg class="jar-svg" viewBox="0 0 160 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <clipPath id="jarBodyClip">
+            <rect x="25" y="58" width="110" height="120" rx="18"/>
+          </clipPath>
+        </defs>
+        <rect x="45" y="18" width="70" height="24" rx="7" fill="var(--rose)" stroke="var(--rose-deep)" stroke-width="3"/>
+        <rect x="38" y="38" width="84" height="18" rx="6" fill="var(--rose-deep)"/>
+        <rect x="25" y="58" width="110" height="120" rx="18" fill="rgba(255,255,255,0.5)" stroke="var(--rose-deep)" stroke-width="3"/>
+        <g clip-path="url(#jarBodyClip)">
+          <rect x="42" y="148" width="36" height="24" rx="5" fill="var(--pink)" transform="rotate(-8 60 160)"/>
+          <rect x="78" y="138" width="36" height="24" rx="5" fill="var(--pink-soft)" transform="rotate(9 96 150)"/>
+          <rect x="52" y="115" width="36" height="24" rx="5" fill="var(--pink)" transform="rotate(-5 70 127)"/>
+          <rect x="68" y="95" width="30" height="20" rx="5" fill="var(--pink-soft)" transform="rotate(6 83 105)"/>
+        </g>
+      </svg>
+      <span class="jar-tap-label" id="jar-tap-label">tap the jar</span>
+    </button>
+    <div class="jar-drawn-note" id="jar-drawn-note"></div>
+  </div>
+</main>
+
+<!-- fixed music indicator -->
+<div class="now-playing" id="now-playing" aria-hidden="true">
+  <span class="now-playing-note">&#9835;</span>
+  <div class="now-playing-info">
+    <span class="now-playing-title" id="now-playing-title"></span>
+    <div class="now-playing-progress"><div class="now-playing-progress-bar" id="now-playing-progress-bar"></div></div>
+  </div>
+  <button class="now-playing-pause" id="now-playing-pause" aria-label="Pause music">❚❚</button>
+</div>
+
+<script src="config.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

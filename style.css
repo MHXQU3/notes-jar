@@ -1,0 +1,217 @@
+/* ==========================================================
+   TOKENS
+   ========================================================== */
+:root{
+  --bg:            #FBF2EE;
+  --bg-deep:       #F5E2DE;
+  --card:          #FFFDFB;
+  --pink-soft:     #F7D3DE;
+  --pink:          #E9AEC5;
+  --rose:          #C3768D;
+  --rose-deep:     #A85A73;
+  --plum:          #4A2E3B;
+  --plum-soft:     #8A6575;
+  --gold:          #CE9F60;
+
+  --font-display: 'Playfair Display', serif;
+  --font-body:    'Quicksand', sans-serif;
+  --font-letter:  'Caveat', cursive;
+
+  --ease: cubic-bezier(.22,.68,.35,1);
+}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{ animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
+}
+
+*{ box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html{ -webkit-text-size-adjust: 100%; }
+body{
+  margin: 0;
+  min-height: 100svh;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% 0%, var(--pink-soft) 0%, transparent 60%),
+    linear-gradient(180deg, var(--bg) 0%, var(--bg-deep) 100%);
+  color: var(--plum);
+  font-family: var(--font-body);
+  font-weight: 500;
+  overflow-x: hidden;
+}
+h1,h2{ font-family: var(--font-display); font-weight: 600; margin: 0; }
+button{ font-family: inherit; cursor: pointer; }
+:focus-visible{ outline: 2px solid var(--rose-deep); outline-offset: 3px; }
+
+/* ==========================================================
+   AMBIENT PETALS
+   ========================================================== */
+.petals{ position: fixed; inset: 0; pointer-events: none; z-index: 1; overflow: hidden; }
+.petal{
+  position: absolute; top: -5%;
+  font-size: 14px;
+  color: var(--pink);
+  opacity: .5;
+  animation: fall linear infinite;
+}
+@keyframes fall{ to{ transform: translateY(110vh) translateX(var(--drift, 30px)) rotate(360deg); } }
+
+/* ==========================================================
+   PAGE LAYOUT
+   ========================================================== */
+.page{
+  position: relative;
+  z-index: 2;
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 2.4rem 1.2rem 6rem;
+}
+.page-header{ text-align: center; margin-bottom: 1.8rem; }
+.page-title{
+  font-size: clamp(1.8rem, 7vw, 2.4rem);
+  font-style: italic;
+  color: var(--plum);
+}
+.page-subtitle{
+  margin-top: .4rem;
+  font-size: .85rem;
+  color: var(--plum-soft);
+  letter-spacing: .03em;
+}
+
+/* ==========================================================
+   MOOD SELECTOR — larger touch targets for mobile
+   ========================================================== */
+.jar-moods{
+  display: flex; flex-wrap: wrap; justify-content: center; gap: .55rem;
+  margin-bottom: 1.4rem;
+}
+.jar-mood{
+  background: var(--card); border: 1px solid var(--pink);
+  color: var(--rose-deep); padding: .65rem 1.15rem; border-radius: 999px;
+  font-size: .85rem; font-weight: 700;
+  min-height: 44px;
+  transition: background .2s, color .2s;
+}
+.jar-mood.is-active, .jar-mood:hover{ background: var(--rose-deep); color: var(--card); border-color: var(--rose-deep); }
+
+.jar-mood-song{
+  display: flex; justify-content: center;
+  margin: 0 auto 1.8rem;
+  max-width: 320px;
+}
+.jar-mood-song:empty{ display: none; }
+
+.memory-song{
+  display: flex; align-items: center; gap: .7rem;
+  background: var(--bg-deep);
+  border-radius: 999px;
+  padding: .5rem .5rem .5rem .9rem;
+  width: 100%;
+}
+.song-title{ font-size: .78rem; color: var(--rose-deep); font-weight: 600; flex: 1; }
+.song-play{
+  width: 40px; height: 40px; border-radius: 50%;
+  border: none; background: var(--rose-deep); color: var(--card);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  transition: transform .25s var(--ease), background .25s;
+}
+.song-play:hover{ background: var(--gold); transform: scale(1.07); }
+.song-play svg{ width: 14px; height: 14px; }
+.song-play.is-playing{ background: var(--gold); animation: pulse 1.2s ease-in-out infinite; }
+@keyframes pulse{ 0%,100%{ opacity: .6; } 50%{ opacity: 1; } }
+
+/* ==========================================================
+   JAR
+   ========================================================== */
+.jar-visual{
+  display: flex; flex-direction: column; align-items: center;
+  gap: 1.3rem;
+}
+.jar-container{
+  background: none; border: none; padding: .5rem;
+  display: flex; flex-direction: column; align-items: center; gap: .7rem;
+  transition: transform .2s var(--ease);
+  min-height: 44px;
+}
+.jar-container:active{ transform: scale(.96); }
+.jar-container:disabled{ opacity: .5; }
+.jar-svg{ width: 170px; height: auto; filter: drop-shadow(0 14px 26px rgba(74,46,59,.22)); }
+.jar-tap-label{
+  font-size: .78rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+  color: var(--rose-deep);
+}
+.jar-container.is-shaking .jar-svg{ animation: jar-shake .5s var(--ease); }
+@keyframes jar-shake{
+  0%, 100%{ transform: rotate(0deg); }
+  20%{ transform: rotate(-6deg); }
+  40%{ transform: rotate(5deg); }
+  60%{ transform: rotate(-4deg); }
+  80%{ transform: rotate(3deg); }
+}
+
+.jar-drawn-note{
+  max-width: 100%;
+  width: 100%;
+  background: var(--card);
+  border-radius: 16px;
+  padding: 1.5rem 1.4rem;
+  box-shadow: 0 16px 34px -16px rgba(74,46,59,.35);
+  font-family: var(--font-letter);
+  font-size: 1.3rem;
+  line-height: 1.55;
+  color: var(--plum);
+  white-space: pre-line;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(16px) scale(.97);
+  transition: opacity .5s var(--ease), transform .5s var(--ease);
+  pointer-events: none;
+}
+.jar-drawn-note.is-visible{
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* ==========================================================
+   NOW PLAYING WIDGET
+   ========================================================== */
+.now-playing{
+  position: fixed; bottom: 1rem; left: 50%;
+  transform: translate(-50%, 140%);
+  z-index: 40;
+  background: var(--plum);
+  color: var(--card);
+  padding: .6rem .6rem .6rem 1rem;
+  border-radius: 999px;
+  display: flex; align-items: center; gap: .6rem;
+  box-shadow: 0 12px 30px -10px rgba(0,0,0,.4);
+  transition: transform .5s var(--ease);
+  max-width: 92vw;
+}
+.now-playing.is-active{ transform: translate(-50%, 0); }
+.now-playing-note{ color: var(--pink); animation: pulse 1.4s ease-in-out infinite; }
+.now-playing-info{ display: flex; flex-direction: column; gap: .3rem; min-width: 0; }
+.now-playing-title{ font-size: .8rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 50vw; }
+.now-playing-progress{
+  width: 100%; min-width: 100px;
+  height: 3px; border-radius: 999px;
+  background: rgba(255,255,255,.25);
+  overflow: hidden;
+}
+.now-playing-progress-bar{
+  height: 100%; width: 0%;
+  background: var(--pink);
+  border-radius: 999px;
+  transition: width .2s linear;
+}
+.now-playing-pause{
+  background: var(--card); color: var(--plum);
+  border: none; width: 30px; height: 30px; border-radius: 50%;
+  font-size: .6rem; flex-shrink: 0;
+}
+
+/* Slightly larger everything on truly small phones */
+@media (max-width: 360px){
+  .jar-svg{ width: 150px; }
+  .jar-drawn-note{ font-size: 1.2rem; padding: 1.2rem 1.1rem; }
+}
