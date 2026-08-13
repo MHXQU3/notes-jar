@@ -12,6 +12,17 @@ document.addEventListener('DOMContentLoaded', () => {
     catch (err) { console.error('[site error] ' + label + ':', err); }
   }
 
+  /* ---------- offline support (PWA) ---------- */
+  safe('service-worker', () => {
+    if('serviceWorker' in navigator){
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js').catch((err) => {
+          console.error('[site error] service worker registration failed:', err);
+        });
+      });
+    }
+  });
+
   /* ---------- petals ---------- */
   safe('petals', () => {
     const wrap = document.getElementById('petals');

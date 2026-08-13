@@ -20,6 +20,16 @@ Open `index.html` in a browser — no build step needed. Audio may not play from
 3. Go to **Settings → Pages**, set **Source: Deploy from a branch**, branch `main`, folder `/ (root)`. Save.
 4. Your page is live at `https://yourusername.github.io/notes-for-her/` a minute or two later.
 
+## 6. Installing it as an app
+This is set up as a PWA (Progressive Web App) — once it's live on GitHub Pages, she can install it like a real app, no App Store or Play Store needed:
+
+**iPhone (Safari):** open the link → tap the Share icon → **Add to Home Screen**.
+**Android (Chrome):** open the link → tap the **⋮** menu → **Add to Home Screen** or **Install app** (Chrome sometimes prompts this automatically).
+
+Once installed, it opens full-screen with its own icon and no browser bar, and after the first visit it keeps working even without signal — the app shell (page, styling, jar) loads instantly from the phone itself, and each mood's song becomes available offline too after she's played it once.
+
+If you ever change `config.js` afterward, she may need to force-close and reopen the app (or wait a bit) for the update to load, since the app caches itself for speed.
+
 Since this is meant to be something she can bookmark and reopen any time, there's no passcode gate on this one — if you'd like to add one, let me know and I can bring over the same keypad-and-cat gate from the main site.
 
 ## Troubleshooting
